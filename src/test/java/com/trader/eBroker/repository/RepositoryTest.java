@@ -1,6 +1,7 @@
 package com.trader.eBroker.repository;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +19,8 @@ public class RepositoryTest {
 	EquityRepository equityRepo;
 	
 	@Test
-	public void shouldTestFundRepo() {
+	@DisplayName("should test fund repository")
+	public void shouldTestFundRepository() {
 		Fund fund = new Fund(1000); 
 		fund.setId(2); 
 		fund = fundsRepo.save(fund);
@@ -29,7 +31,8 @@ public class RepositoryTest {
 	}
 	
 	@Test
-	public void shouldTestEquityRepo() {
+	@DisplayName("should test equity repository")
+	public void shouldTestEquityRepository() {
 		Equity equity = new Equity("hdfc", 10);
 		equityRepo.save(equity);
 		Equity result = equityRepo.findByStockName("hdfc");

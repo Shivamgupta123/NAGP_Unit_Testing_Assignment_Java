@@ -44,9 +44,9 @@ public class BrokerServiceImpl implements BrokerService{
 			OrderType type = OrderType.valueOf(equityDTO.getOrderType().toUpperCase());
 			switch(type) {
 				case SELL:
-					return executeSellOrder(equityDTO);
+					return sellEquity(equityDTO);
 				default:
-					return executeBuyOrder(equityDTO);
+					return buyEquity(equityDTO);
 			}
 		}catch(Exception e) {
 			//TODO
@@ -56,7 +56,7 @@ public class BrokerServiceImpl implements BrokerService{
 	}
 
 	
-	public String executeBuyOrder(EquityDTO equityDTO) {
+	public String buyEquity(EquityDTO equityDTO) {
 		Fund availableFund = fundsRepo.getById(1);
 		double totalOrderAmount = equityDTO.getQuantity() * equityDTO.getPerStockPrice();
 		if(availableFund.getFund()< totalOrderAmount) {
@@ -76,7 +76,7 @@ public class BrokerServiceImpl implements BrokerService{
 		return "Equity bought successfully.";	
 	}
 
-	public String executeSellOrder(EquityDTO equityDTO) {
+	public String sellEquity(EquityDTO equityDTO) {
 		Equity existing = equityRepo.findByStockName(equityDTO.getName().toLowerCase());
 		if(existing == null || equityDTO.getQuantity() > existing.getStockQuantity()) {
 			return "You don't have sufficient equity to sell";
